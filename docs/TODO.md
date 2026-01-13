@@ -5,7 +5,7 @@ Planned documentation topics to investigate and write.
 ## Events
 
 - [x] ~~**Block Break/Place** - Prevent/allow breaking, custom drops, building restrictions~~
-- [ ] ⬆️ **Player Chat** - Chat formatting, filtering, channels, muting (let's focus less on channels and proximity chat and this kind of thing, more on adding prefixes/ranks to specific users)
+- [x] ~~**Player Chat** - Chat formatting, filtering, channels, muting (let's focus less on channels and proximity chat and this kind of thing, more on adding prefixes/ranks to specific users)~~
 - [x] ~~**Entity Spawn** - Control mob spawning, custom spawners (note: let's also include straight up disabling entity spawning)~~
 - [ ] ⬆️ **Player Movement/Teleport** - Regions, boundaries, teleportation
 - [ ] **Projectile Hit** - Arrow damage, custom projectiles
