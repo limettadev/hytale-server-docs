@@ -35,7 +35,8 @@ export default defineConfig({
           { text: 'Damage', link: '/reference/events/damage' },
           { text: 'Death', link: '/reference/events/death' },
           { text: 'Respawn', link: '/reference/events/respawn' },
-          { text: 'Player Join', link: '/reference/events/player-join' }
+          { text: 'Player Join', link: '/reference/events/player-join' },
+          { text: 'Entity Spawn', link: '/reference/events/entity-spawn' }
         ]
       },
       {
@@ -73,6 +74,7 @@ export default defineConfig({
           { text: 'EntityStatMap', link: '/api/EntityStatMap' },
           { text: 'JavaPlugin', link: '/api/JavaPlugin' },
           { text: 'PlayerRef', link: '/api/PlayerRef' },
+          { text: 'NPCEntity', link: '/api/NPCEntity' },
           { text: 'Message', link: '/api/Message' },
           { text: 'RefSystem', link: '/api/RefSystem' },
           { text: 'RefChangeSystem', link: '/api/RefChangeSystem' },
@@ -96,7 +98,7 @@ export default defineConfig({
       level: [2, 3]
     },
     footer: {
-      message: 'Unofficial documentation · Questions? DM @april83c on Discord',
+      message: 'Unofficial documentation · Any questions? Found a mistake? Have something you want documented? Join the Discord server at the top and let us know in #hytale!',
       copyright: '© 2026 Limetta',
 
     }
