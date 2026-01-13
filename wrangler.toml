@@ -1,0 +1,16 @@
+name = "hytale"
+compatibility_date = "2025-09-08"
+
+# disable default "workers.dev" domain
+workers_dev = false
+
+[assets]
+directory = "./docs/.vitepress/dist"
+not_found_handling = "404-page"
+
+[[routes]]
+pattern = "hytale.limetta.dev"
+custom_domain = true
+
+[observability.logs]
+enabled = false

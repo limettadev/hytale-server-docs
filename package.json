@@ -1,0 +1,17 @@
+{
+  "name": "hytale-server-docs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "upload": "wrangler deploy",
+    "generate-api": "bun run scripts/generate-api-docs.ts",
+    "deploy": "bun run generate-api && bun run build && bun run upload"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "wrangler": "^4.59.1"
+  }
+}
