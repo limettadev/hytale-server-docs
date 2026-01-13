@@ -85,6 +85,10 @@ export default defineConfig({
         ]
       }
     ],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/limettadev/hytale-server-docs' },
+      { icon: 'discord', link: 'https://limetta.dev/discord' }
+    ],
     search: {
       provider: 'local'
     },
