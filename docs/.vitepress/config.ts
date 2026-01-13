@@ -36,7 +36,8 @@ export default defineConfig({
           { text: 'Death', link: '/reference/events/death' },
           { text: 'Respawn', link: '/reference/events/respawn' },
           { text: 'Player Join', link: '/reference/events/player-join' },
-          { text: 'Entity Spawn', link: '/reference/events/entity-spawn' }
+          { text: 'Entity Spawn', link: '/reference/events/entity-spawn' },
+          { text: 'Block Break & Place', link: '/reference/events/block-break-place' }
         ]
       },
       {
