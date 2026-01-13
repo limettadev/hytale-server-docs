@@ -2,6 +2,14 @@
 
 The `PlayerChatEvent` fires when a player sends a chat message. This is an EventBus event (not ECS), so you register it with `getEventRegistry()`.
 
+::: info API Reference
+See full API: [Message](/api/Message) | [PlayerRef](/api/PlayerRef)
+:::
+
+::: tip Concepts
+Before reading this, familiarize yourself with the [Event System](/concepts/events) (specifically the EventBus section).
+:::
+
 ## Basic Usage
 
 ```java

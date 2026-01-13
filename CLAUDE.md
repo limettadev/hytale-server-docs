@@ -109,3 +109,23 @@ bun --hot ./index.ts
 ```
 
 For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
+
+## Documentation Guidelines
+
+When writing reference documentation pages (in `docs/reference/`), always include these boxes near the top:
+
+1. **API Reference box** - Links to relevant API docs:
+```md
+::: info API Reference
+See full API: [ClassName](/api/ClassName) | [OtherClass](/api/OtherClass)
+:::
+```
+
+2. **Concepts box** - Links to prerequisite concept pages:
+```md
+::: tip Concepts
+Before reading this, familiarize yourself with the [Event System](/concepts/events) and [System Groups](/concepts/system-groups).
+:::
+```
+
+See `docs/reference/events/damage.md` for a good example of this format.

@@ -2,6 +2,14 @@
 
 Hytale provides cancellable events for block breaking and placing, allowing plugins to control building and destruction.
 
+::: info API Reference
+See full API: [EntityEventSystem](/api/EntityEventSystem)
+:::
+
+::: tip Concepts
+Before reading this, familiarize yourself with the [Event System](/concepts/events).
+:::
+
 ## Events Overview
 
 | Event | Description | Cancellable |

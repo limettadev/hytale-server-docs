@@ -2,6 +2,14 @@
 
 Entity spawning in Hytale uses the ECS lifecycle system rather than traditional events. When entities are added to the world, a `RefSystem` can detect and respond to them.
 
+::: info API Reference
+See full API: [NPCEntity](/api/NPCEntity) | [RefSystem](/api/RefSystem)
+:::
+
+::: tip Concepts
+Before reading this, familiarize yourself with the [Event System](/concepts/events) and [ECS Architecture](/concepts/ecs).
+:::
+
 ::: tip Key Concept
 Entity spawning uses `AddReason.SPAWN` to distinguish newly spawned entities from entities being loaded from save data (`AddReason.LOAD`).
 :::

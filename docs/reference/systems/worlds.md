@@ -2,6 +2,14 @@
 
 Worlds in Hytale are managed through the `Universe` class. Each world runs on its own thread and contains entities via an `EntityStore`.
 
+::: info API Reference
+See full API: [JavaPlugin](/api/JavaPlugin) | [Store](/api/Store)
+:::
+
+::: tip Concepts
+Before reading this, familiarize yourself with the [Event System](/concepts/events) and [Creating a Plugin](/getting-started/plugin).
+:::
+
 ## Accessing Worlds
 
 ### From an Event Handler

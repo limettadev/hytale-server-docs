@@ -2,6 +2,10 @@
 
 The player join event triggers when a player entity is added to the world. This includes first-time spawns and returning players.
 
+::: info API Reference
+See full API: [Player](/api/Player) | [RefSystem](/api/RefSystem)
+:::
+
 ::: tip Concepts
 Before reading this, familiarize yourself with the [Event System](/concepts/events).
 :::

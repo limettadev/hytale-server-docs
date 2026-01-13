@@ -2,6 +2,10 @@
 
 The respawn event triggers when a player respawns after death. It's detected when `DeathComponent` is **removed** from the entity.
 
+::: info API Reference
+See full API: [RespawnSystems](/api/RespawnSystems) | [DeathComponent](/api/DeathComponent)
+:::
+
 ::: tip Concepts
 Before reading this, familiarize yourself with the [Event System](/concepts/events).
 :::
