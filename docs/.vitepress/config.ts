@@ -61,6 +61,7 @@ export default defineConfig({
         text: 'Reference: UI',
         collapsed: false,
         items: [
+          { text: 'Showing UI', link: '/reference/ui/showing-ui' },
           { text: 'UI File Reference', link: '/reference/ui/ui-files' }
         ]
       },
