@@ -3,7 +3,7 @@
 The respawn event triggers when a player respawns after death. It's detected when `DeathComponent` is **removed** from the entity.
 
 ::: info API Reference
-See full API: [RespawnSystems](/api/RespawnSystems) | [DeathComponent](/api/DeathComponent)
+See full API: [RespawnSystems](/api/RespawnSystems) | [DeathComponent](/api/DeathComponent) | [Inventory](/api/Inventory) | [ItemContainer](/api/ItemContainer)
 :::
 
 ::: tip Concepts
@@ -15,10 +15,10 @@ Before reading this, familiarize yourself with the [Event System](/concepts/even
 | Property | Value |
 |----------|-------|
 | Component | `DeathComponent` |
-| Base Handler | `RespawnSystems.OnRespawnSystem` |
+| Base Handler | `RespawnSystems.OnRespawnSystem`[^1] |
 | Trigger | `DeathComponent` removed from entity |
 
-## Creating a Handler
+## Creating a Handler[^1]
 
 Extend `RespawnSystems.OnRespawnSystem` and override `onComponentRemoved`:
 
@@ -27,6 +27,7 @@ package com.example.myplugin;
 
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
@@ -51,9 +52,9 @@ public class GiveItemsOnRespawn extends RespawnSystems.OnRespawnSystem {
 
         Player player = (Player) store.getComponent(ref, Player.getComponentType());
 
-        // Give starter items
-        player.getInventory().addItemStack(new ItemStack("Wood Sword", 1));
-        player.getInventory().addItemStack(new ItemStack("Apple", 5));
+        // Give starter items (add to hotbar first, then storage)[^2]
+        player.getInventory().getCombinedHotbarFirst().addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+        player.getInventory().getCombinedHotbarFirst().addItemStack(new ItemStack("Consumable_Apple", 5));
 
         // Send welcome back message
         player.sendMessage(Message.raw("Welcome back!"));
@@ -63,7 +64,7 @@ public class GiveItemsOnRespawn extends RespawnSystems.OnRespawnSystem {
 
 ## Common Use Cases
 
-### Respawn Kit
+### Respawn Kit[^2]
 
 ```java
 @Override
@@ -77,11 +78,12 @@ public void onComponentRemoved(@Nonnull Ref<EntityStore> ref,
     // Clear inventory first (optional)
     player.getInventory().clear();
 
-    // Give respawn kit
-    player.getInventory().addItemStack(new ItemStack("Wood Sword", 1));
-    player.getInventory().addItemStack(new ItemStack("Wood Pickaxe", 1));
-    player.getInventory().addItemStack(new ItemStack("Torch", 16));
-    player.getInventory().addItemStack(new ItemStack("Bread", 10));
+    // Give respawn kit (add to hotbar first, then storage)
+    ItemContainer container = player.getInventory().getCombinedHotbarFirst();
+    container.addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+    container.addItemStack(new ItemStack("Tool_Pickaxe_Wood", 1));
+    container.addItemStack(new ItemStack("Block_Torch", 16));
+    container.addItemStack(new ItemStack("Consumable_Bread", 10));
 }
 ```
 
@@ -151,3 +153,6 @@ protected void setup() {
 - [Event System](/concepts/events) - How component events work
 - [Death Event](/reference/events/death) - The death that precedes respawn
 - [Player Join](/reference/events/player-join) - Initial spawn handling
+
+[^1]: See [RespawnSystems API](/api/RespawnSystems) for base class methods
+[^2]: See [Inventory API](/api/Inventory) for container access methods and [ItemContainer API](/api/ItemContainer) for `addItemStack()`, `clear()`, etc.

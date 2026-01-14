@@ -3,7 +3,7 @@
 Entity spawning in Hytale uses the ECS lifecycle system rather than traditional events. When entities are added to the world, a `RefSystem` can detect and respond to them.
 
 ::: info API Reference
-See full API: [NPCEntity](/api/NPCEntity) | [RefSystem](/api/RefSystem)
+See full API: [NPCEntity](/api/NPCEntity) | [NPCPlugin](/api/NPCPlugin) | [RefSystem](/api/RefSystem) | [WorldConfig](/api/WorldConfig)
 :::
 
 ::: tip Concepts
@@ -14,7 +14,7 @@ Before reading this, familiarize yourself with the [Event System](/concepts/even
 Entity spawning uses `AddReason.SPAWN` to distinguish newly spawned entities from entities being loaded from save data (`AddReason.LOAD`).
 :::
 
-## Listening for Entity Spawns
+## Listening for Entity Spawns[^2]
 
 Use a `RefSystem` to detect when entities are added to the world:
 
@@ -139,15 +139,15 @@ Universe.get().addWorld("arena", "void", null).thenAccept(world -> {
 });
 ```
 
-### Freeze All NPCs
+### Freeze All NPCs[^1]
 
 You can also freeze all NPCs in a world (prevents movement and AI):
 
 ```java
-world.getWorldConfig().setAllNPCFrozen(true);
+world.getWorldConfig().setIsAllNPCFrozen(true);
 ```
 
-## Spawning Entities Programmatically
+## Spawning Entities Programmatically[^3]
 
 ### Basic NPC Spawn
 
@@ -374,8 +374,6 @@ public class SpawnControlPlugin extends JavaPlugin {
 - [World Management](/reference/systems/worlds) - World configuration options
 - [Player Join](/reference/events/player-join) - Similar RefSystem pattern for players
 
-::: info API Reference
-See the full API documentation:
-- [NPCEntity](/api/NPCEntity) - NPC entity component
-- [RefSystem](/api/RefSystem) - Entity lifecycle system
-:::
+[^1]: See [WorldConfig API](/api/WorldConfig) for `setSpawningNPC()`, `isSpawningNPC()`, `setIsAllNPCFrozen()`, and other world settings
+[^2]: See [RefSystem API](/api/RefSystem) for `onEntityAdded()` and `onEntityRemove()` methods
+[^3]: See [NPCPlugin API](/api/NPCPlugin) for `spawnNPC()`, `spawnEntity()`, and `getIndex()` methods

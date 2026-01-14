@@ -3,7 +3,7 @@
 The `PlayerChatEvent` fires when a player sends a chat message. This is an EventBus event (not ECS), so you register it with `getEventRegistry()`.
 
 ::: info API Reference
-See full API: [Message](/api/Message) | [PlayerRef](/api/PlayerRef)
+See full API: [PlayerChatEvent](/api/PlayerChatEvent) | [Message](/api/Message) | [PlayerRef](/api/PlayerRef)
 :::
 
 ::: tip Concepts
@@ -90,7 +90,7 @@ getEventRegistry().register(PlayerChatEvent.class, event -> {
 });
 ```
 
-## Event Properties
+## Event Properties[^1]
 
 | Method | Returns | Description |
 |--------|---------|-------------|
@@ -169,3 +169,5 @@ public class ChatPlugin extends JavaPlugin {
 - [Event System](/concepts/events) - Understanding both event systems
 - [Player Component](/reference/components/player) - Player data access
 - [Message](/api/Message) - Creating formatted messages
+
+[^1]: See [PlayerChatEvent API](/api/PlayerChatEvent) for all available methods and the `Formatter` interface

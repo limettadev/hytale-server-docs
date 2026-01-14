@@ -6,6 +6,10 @@ The `TransformComponent` stores an entity's position and rotation in the world.
 See full API: [TransformComponent](/api/TransformComponent)
 :::
 
+::: tip Concepts
+Before reading this, familiarize yourself with [Components](/concepts/components).
+:::
+
 ## Overview
 
 | Property | Value |
@@ -25,7 +29,7 @@ TransformComponent transform = (TransformComponent)
     chunk.getComponent(index, TransformComponent.getComponentType());
 ```
 
-## Position
+## Position[^1]
 
 ```java
 // Get position
@@ -135,3 +139,5 @@ Vector3d vel = velocity.getVelocity();
 
 - [Components Concept](/concepts/components) - How components work
 - [Player Component](/reference/components/player) - Player data
+
+[^1]: See [TransformComponent API](/api/TransformComponent) for `getPosition()`, `setPosition()`, `getRotation()`, `setRotation()`, and `teleportPosition()`

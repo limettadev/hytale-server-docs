@@ -3,7 +3,7 @@
 Worlds in Hytale are managed through the `Universe` class. Each world runs on its own thread and contains entities via an `EntityStore`.
 
 ::: info API Reference
-See full API: [JavaPlugin](/api/JavaPlugin) | [Store](/api/Store)
+See full API: [JavaPlugin](/api/JavaPlugin) | [WorldConfig](/api/WorldConfig) | [Store](/api/Store)
 :::
 
 ::: tip Concepts
@@ -61,7 +61,7 @@ universe.addWorld("flatworld", "flat", null).thenAccept(world -> {
 | `void` | Empty void world |
 | `dummy` | Minimal generation |
 
-## World Configuration
+## World Configuration[^1]
 
 Each world has a `WorldConfig` that controls its behavior:
 
@@ -260,3 +260,5 @@ config.setDeleteOnRemove(true);  // Delete world files when removed
 
 - [Player Join Event](/reference/events/player-join) - Handle players joining worlds
 - [Creating a Plugin](/getting-started/plugin) - Plugin setup guide
+
+[^1]: See [WorldConfig API](/api/WorldConfig) for all configuration options including `setSpawningNPC()`, `setIsAllNPCFrozen()`, `setDeleteOnRemove()`, etc.

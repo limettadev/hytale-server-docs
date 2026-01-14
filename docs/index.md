@@ -1,9 +1,9 @@
 ---
 layout: home
 hero:
-  name: Hytale Server Docs
-  text: Plugin Development Guide
-  tagline: Documentation for creating server-side plugins
+  name: Hytale API Documentation
+  text: by limetta
+  tagline: Documentation for the HytaleServer plugin API
   actions:
     - theme: brand
       text: Get Started
@@ -13,12 +13,24 @@ hero:
       link: /concepts/events
 features:
   - title: ECS Architecture
-    details: Built on an Entity Component System for high performance and flexibility.
+    details: Learn about Hytale's flexible Entity-Component-System architecture.
     link: /concepts/ecs
   - title: Event System
-    details: Hook into damage, death, respawn, and player events with cancellable event handlers.
+    details: Hook into various events to change Hytale's functionality.
     link: /concepts/events
-  - title: System Groups
-    details: Control execution order with gather, filter, and inspect phases.
-    link: /concepts/system-groups
+  - title: API Documentation
+    details: Auto-generated, JavaDoc-like, raw API documentation.
+    link: /api
 ---
+Welcome to limetta's Hytale API Documentation!
+
+The documentation here is:
+- Based on decompiled code from HytaleServer
+- Investigated and written by Claude Opus
+
+As with any AI content, please take it with a grain of salt. However, we ensure that this documentation can be as accurate and free of hallucinations as possible.
+
+- The *API Reference* section is fully programatically generated from decompiled HytaleServer code without any human or AI involvement.
+- All other documentation and guides are fact-checked against this programatically-generated API Reference and made to link to it for correctness.
+
+If you spot any mistakes, have any feedback, or think something is missing, please feel free to reach out on our [Discord server](https://limetta.dev/discord), in the `#hytale` channel.

@@ -3,7 +3,7 @@
 The player join event triggers when a player entity is added to the world. This includes first-time spawns and returning players.
 
 ::: info API Reference
-See full API: [Player](/api/Player) | [RefSystem](/api/RefSystem)
+See full API: [Player](/api/Player) | [RefSystem](/api/RefSystem) | [PlayerRef](/api/PlayerRef) | [ItemContainer](/api/ItemContainer)
 :::
 
 ::: tip Concepts
@@ -14,11 +14,11 @@ Before reading this, familiarize yourself with the [Event System](/concepts/even
 
 | Property | Value |
 |----------|-------|
-| Base Handler | `RefSystem` |
+| Base Handler | `RefSystem`[^1] |
 | Trigger | Entity with `Player` component added to world |
-| Key Method | `player.isFirstSpawn()` to check first join |
+| Key Method | `player.isFirstSpawn()`[^2] to check first join |
 
-## Creating a Handler
+## Creating a Handler[^1]
 
 Extend `RefSystem` and check for the `Player` component:
 
@@ -28,8 +28,10 @@ package com.example.myplugin;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import javax.annotation.Nonnull;
 
@@ -69,10 +71,12 @@ public class PlayerJoinHandler extends RefSystem {
     }
 
     private void giveStarterKit(Player player) {
-        player.getInventory().addItemStack(new ItemStack("Wood Sword", 1));
-        player.getInventory().addItemStack(new ItemStack("Wood Pickaxe", 1));
-        player.getInventory().addItemStack(new ItemStack("Torch", 16));
-        player.getInventory().addItemStack(new ItemStack("Apple", 10));
+        // Add items to hotbar first, then storage[^3]
+        ItemContainer container = player.getInventory().getCombinedHotbarFirst();
+        container.addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+        container.addItemStack(new ItemStack("Tool_Pickaxe_Wood", 1));
+        container.addItemStack(new ItemStack("Block_Torch", 16));
+        container.addItemStack(new ItemStack("Consumable_Apple", 10));
     }
 }
 ```
@@ -193,3 +197,7 @@ protected void setup() {
 - [Event System](/concepts/events) - How lifecycle events work
 - [Respawn Event](/reference/events/respawn) - Respawn after death
 - [Player Component](/reference/components/player) - Player data access
+
+[^1]: See [RefSystem API](/api/RefSystem) for `onEntityAdded()` and `onEntityRemove()` methods
+[^2]: See [Player API](/api/Player) for `isFirstSpawn()`, `sendMessage()`, and `getInventory()`
+[^3]: See [ItemContainer API](/api/ItemContainer) for `addItemStack()` and other inventory manipulation methods

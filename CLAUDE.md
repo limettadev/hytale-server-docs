@@ -129,3 +129,38 @@ Before reading this, familiarize yourself with the [Event System](/concepts/even
 ```
 
 See `docs/reference/events/damage.md` for a good example of this format.
+
+## Fact-Checking Documentation
+
+When writing or updating documentation, **always fact-check code examples against the auto-generated API reference** in `docs/api/`:
+
+1. **Verify method signatures** - Check that method names, parameters, and return types match the actual API
+2. **Verify class locations** - Ensure imports and package paths are correct
+3. **Add footnotes** - Link to relevant API docs using footnotes:
+   ```md
+   ## Section Title[^1]
+
+   Content here...
+
+   [^1]: See [ClassName API](/api/ClassName) for method details
+   ```
+
+### Common Issues to Watch For
+
+- **Inventory methods**: `Inventory` doesn't have `addItemStack()` directly - use `inventory.getCombinedHotbarFirst().addItemStack()` or similar `ItemContainer` methods
+- **Item IDs**: Use proper item ID format like `"Tool_Sword_Wood"`, `"Consumable_Apple"`, `"Block_Torch"` - not friendly names like `"Wood Sword"`
+- **EntityEventSystem signature**: The correct signature is `handle(int index, ArchetypeChunk chunk, Store store, CommandBuffer commandBuffer, EventType event)` - NOT `handle(Ref<EntityStore> ref, EventType event, ...)`
+- **WorldConfig setters**: Some config values are read-only (loaded from config files) - check if setters actually exist before documenting them
+
+### Adding Missing APIs
+
+If an API class is needed but not generated, add it to `scripts/generate-api-docs.ts` in the `KEY_CLASSES` array:
+
+```ts
+const KEY_CLASSES = [
+  // ...existing classes
+  "path/to/NewClass.java",
+];
+```
+
+Then run `bun scripts/generate-api-docs.ts` to regenerate.

@@ -172,6 +172,7 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.RespawnSystems;
@@ -239,9 +240,11 @@ public class StarterKitPlugin extends JavaPlugin {
     }
 
     private static void giveStarterKit(Player player) {
-        player.getInventory().addItemStack(new ItemStack("Tool_Sword_Wood", 1));
-        player.getInventory().addItemStack(new ItemStack("Tool_Pickaxe_Wood", 1));
-        player.getInventory().addItemStack(new ItemStack("Food_Apple", 10));
+        // Add items to hotbar first, then storage
+        ItemContainer container = player.getInventory().getCombinedHotbarFirst();
+        container.addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+        container.addItemStack(new ItemStack("Tool_Pickaxe_Wood", 1));
+        container.addItemStack(new ItemStack("Consumable_Apple", 10));
     }
 }
 ```

@@ -35,15 +35,17 @@ public class Damage extends CancellableEcsEvent {
 
 | Method | Description |
 |--------|-------------|
-| `getAmount()` | Get damage value |
-| `setAmount(float)` | Modify damage value |
-| `getSource()` | Get damage source |
-| `getCause()` | Get damage cause type |
-| `setCancelled(boolean)` | Cancel the damage |
-| `isCancelled()` | Check if cancelled |
-| `getMetaStore()` | Access metadata (knockback, particles, etc.) |
+| `getAmount()`[^1] | Get damage value |
+| `setAmount(float)`[^1] | Modify damage value |
+| `getSource()`[^1] | Get damage source |
+| `getCause()`[^1] | Get damage cause type (**deprecated** - use `getDamageCauseIndex()`) |
+| `setCancelled(boolean)` | Cancel the damage (inherited from `CancellableEcsEvent`) |
+| `isCancelled()` | Check if cancelled (inherited from `CancellableEcsEvent`) |
+| `getMetaStore()`[^1] | Access metadata (knockback, particles, etc.) |
 
-### Damage Sources
+[^1]: See [Damage API](/api/Damage) for full method list
+
+### Damage Sources[^2]
 
 ```java
 // Check source type
@@ -53,32 +55,44 @@ if (damage.getSource() instanceof Damage.EntitySource source) {
 }
 
 if (damage.getSource() instanceof Damage.ProjectileSource source) {
-    Ref<EntityStore> projectileRef = source.getProjectileRef();
-    Ref<EntityStore> shooterRef = source.getShooterRef();
+    Ref<EntityStore> projectileRef = source.getProjectile();  // The projectile entity
+    Ref<EntityStore> shooterRef = source.getRef();            // The shooter (inherited from EntitySource)
     // Damage came from a projectile
 }
 
+if (damage.getSource() instanceof Damage.EnvironmentSource source) {
+    String type = source.getType();  // Environment type string
+    // Damage from environment (lava, etc.)
+}
+
 if (damage.getSource() == Damage.NULL_SOURCE) {
-    // Environmental damage (fall, drowning, etc.)
+    // Environmental damage with no specific source (fall, drowning, etc.)
 }
 ```
 
-### Damage Causes
+[^2]: See [Damage API](/api/Damage) for Source inner classes: `EntitySource`, `ProjectileSource`, `EnvironmentSource`, `CommandSource`
 
-Common `DamageCause` values:
+### Damage Causes[^3]
+
+`DamageCause` static fields:
 - `DamageCause.PHYSICAL` - Melee attacks
 - `DamageCause.PROJECTILE` - Arrow/projectile hits
+- `DamageCause.COMMAND` - Damage from commands
 - `DamageCause.FALL` - Fall damage
 - `DamageCause.DROWNING` - Drowning
 - `DamageCause.SUFFOCATION` - Stuck in blocks
 - `DamageCause.OUT_OF_WORLD` - Fell into void
 - `DamageCause.ENVIRONMENT` - Block damage (lava, etc.)
 
+[^3]: See [DamageCause API](/api/DamageCause) for all static fields
+
 ## Creating a Handler
 
-### Filter Group (Modify/Cancel)
+### Filter Group (Modify/Cancel)[^4]
 
 Use the filter group to modify or cancel damage **before** it's applied:
+
+[^4]: See [DamageModule API](/api/DamageModule) for `getFilterDamageGroup()`, `getInspectDamageGroup()`, `getGatherDamageGroup()`
 
 ```java
 package com.example.myplugin;
@@ -163,7 +177,7 @@ public class DamageLogger extends DamageEventSystem {
 }
 ```
 
-## Dispatching Damage
+## Dispatching Damage[^5]
 
 To deal damage to an entity programmatically:
 
@@ -178,6 +192,8 @@ Damage damage = new Damage(
 // Dispatch the damage event
 DamageSystems.executeDamage(targetRef, commandBuffer, damage);
 ```
+
+[^5]: See [DamageSystems API](/api/DamageSystems) for `executeDamage()` overloads
 
 ## Built-in Handlers
 

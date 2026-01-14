@@ -3,7 +3,11 @@
 The `Inventory` class manages a player's items including hotbar, armor, and storage.
 
 ::: info API Reference
-See full API: [Inventory](/api/Inventory) | [ItemStack](/api/ItemStack)
+See full API: [Inventory](/api/Inventory) | [ItemContainer](/api/ItemContainer) | [ItemStack](/api/ItemStack)
+:::
+
+::: tip Concepts
+Before reading this, familiarize yourself with [Components](/concepts/components).
 :::
 
 ## Overview
@@ -15,21 +19,30 @@ Player player = (Player) commandBuffer.getComponent(ref, Player.getComponentType
 Inventory inventory = player.getInventory();
 ```
 
-## Adding Items
+## Adding Items[^1]
+
+Items are added through `ItemContainer` objects, not directly on `Inventory`:
 
 ```java
-// Add items (finds first available slot)
-inventory.addItemStack(new ItemStack("Wood Sword", 1));
-inventory.addItemStack(new ItemStack("Apple", 10));
+// Get a container (adds to hotbar first, then storage)
+ItemContainer container = inventory.getCombinedHotbarFirst();
+
+// Add items
+container.addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+container.addItemStack(new ItemStack("Consumable_Apple", 10));
+
+// Or add directly to specific containers
+inventory.getHotbar().addItemStack(new ItemStack("Tool_Pickaxe_Wood", 1));
+inventory.getStorage().addItemStack(new ItemStack("Block_Torch", 16));
 
 // Add multiple items
 ItemStack[] items = {
-    new ItemStack("Wood Pickaxe", 1),
-    new ItemStack("Torch", 16),
-    new ItemStack("Bread", 5)
+    new ItemStack("Tool_Pickaxe_Wood", 1),
+    new ItemStack("Block_Torch", 16),
+    new ItemStack("Consumable_Bread", 5)
 };
 for (ItemStack item : items) {
-    inventory.addItemStack(item);
+    container.addItemStack(item);
 }
 ```
 
@@ -78,14 +91,14 @@ inventory.clear();
 List<ItemStack> dropped = inventory.dropAllItemStacks();
 ```
 
-## ItemStack
+## ItemStack[^2]
 
 `ItemStack` represents a stack of items:
 
 ```java
 // Create an item stack
-ItemStack sword = new ItemStack("Wood Sword", 1);
-ItemStack apples = new ItemStack("Apple", 10);
+ItemStack sword = new ItemStack("Tool_Sword_Wood", 1);
+ItemStack apples = new ItemStack("Consumable_Apple", 10);
 
 // ItemStack properties
 Item item = itemStack.getItem();           // The item type
@@ -108,21 +121,22 @@ ItemStack damagedSword = itemStack.withIncreasedDurability(-10);
 
 ```java
 public void giveStarterKit(Player player) {
-    Inventory inventory = player.getInventory();
+    // Get container that adds to hotbar first, then storage
+    ItemContainer container = player.getInventory().getCombinedHotbarFirst();
 
     // Weapons
-    inventory.addItemStack(new ItemStack("Wood Sword", 1));
-    inventory.addItemStack(new ItemStack("Bow", 1));
-    inventory.addItemStack(new ItemStack("Arrow", 32));
+    container.addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+    container.addItemStack(new ItemStack("Tool_Bow", 1));
+    container.addItemStack(new ItemStack("Ammo_Arrow", 32));
 
     // Tools
-    inventory.addItemStack(new ItemStack("Wood Pickaxe", 1));
-    inventory.addItemStack(new ItemStack("Wood Axe", 1));
+    container.addItemStack(new ItemStack("Tool_Pickaxe_Wood", 1));
+    container.addItemStack(new ItemStack("Tool_Axe_Wood", 1));
 
     // Resources
-    inventory.addItemStack(new ItemStack("Torch", 16));
-    inventory.addItemStack(new ItemStack("Apple", 10));
-    inventory.addItemStack(new ItemStack("Bread", 10));
+    container.addItemStack(new ItemStack("Block_Torch", 16));
+    container.addItemStack(new ItemStack("Consumable_Apple", 10));
+    container.addItemStack(new ItemStack("Consumable_Bread", 10));
 }
 ```
 
@@ -183,3 +197,6 @@ public List<ItemStack> dropPercentageOfItems(Player player, double percentage) {
 - [Player Component](/reference/components/player) - Access inventory from player
 - [Death Event](/reference/events/death) - Item loss on death
 - [Respawn Event](/reference/events/respawn) - Give items on respawn
+
+[^1]: See [ItemContainer API](/api/ItemContainer) for `addItemStack()`, `getItemStack()`, `removeItemStackFromSlot()`, and other item manipulation methods
+[^2]: See [ItemStack API](/api/ItemStack) for constructors and methods like `getQuantity()`, `withQuantity()`, `isBroken()`

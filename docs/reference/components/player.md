@@ -3,7 +3,7 @@
 The `Player` component contains player-specific data like inventory, game mode, and messaging.
 
 ::: info API Reference
-See full API: [Player](/api/Player) | [PlayerRef](/api/PlayerRef)
+See full API: [Player](/api/Player) | [PlayerRef](/api/PlayerRef) | [Inventory](/api/Inventory) | [ItemContainer](/api/ItemContainer)
 :::
 
 ## Overview
@@ -25,14 +25,19 @@ Player player = (Player) chunk.getComponent(index, Player.getComponentType());
 
 ## Key Methods
 
-### Inventory
+### Inventory[^1]
 
 ```java
 Inventory inventory = player.getInventory();
 
-// Add items
-inventory.addItemStack(new ItemStack("Wood Sword", 1));
-inventory.addItemStack(new ItemStack("Apple", 10));
+// Add items (use getCombinedHotbarFirst() for hotbar priority)
+ItemContainer container = inventory.getCombinedHotbarFirst();
+container.addItemStack(new ItemStack("Tool_Sword_Wood", 1));
+container.addItemStack(new ItemStack("Consumable_Apple", 10));
+
+// Or add directly to hotbar/storage
+inventory.getHotbar().addItemStack(new ItemStack("Block_Torch", 16));
+inventory.getStorage().addItemStack(new ItemStack("Resource_Stone", 64));
 
 // Get specific slots
 ItemStack inHand = inventory.getItemInHand();
@@ -157,7 +162,8 @@ public class PlayerInfoHandler extends RefSystem {
         System.out.println(username + " joined at " + position + " in " + mode + " mode");
 
         if (player.isFirstSpawn()) {
-            player.getInventory().addItemStack(new ItemStack("Wood Sword", 1));
+            player.getInventory().getCombinedHotbarFirst().addItemStack(
+                new ItemStack("Tool_Sword_Wood", 1));
             player.sendMessage(Message.raw("Welcome, " + username + "!"));
         }
     }
@@ -173,3 +179,5 @@ public class PlayerInfoHandler extends RefSystem {
 - [Components Concept](/concepts/components) - How components work
 - [TransformComponent](/reference/components/transform) - Position and rotation
 - [Player Join Event](/reference/events/player-join) - Handle player joins
+
+[^1]: See [Inventory API](/api/Inventory) for access methods and [ItemContainer API](/api/ItemContainer) for `addItemStack()`, `clear()`, etc.

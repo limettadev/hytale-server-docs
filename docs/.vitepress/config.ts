@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Hytale Server Docs',
-  description: 'Documentation for the Hytale Server API',
+  title: 'Hytale Docs by limetta',
+  description: 'Documentation for the HytaleServer plugin API by limetta',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
@@ -102,7 +102,9 @@ export default defineConfig({
     footer: {
       message: 'Unofficial documentation · Any questions? Found a mistake? Have something you want documented? Join the Discord server at the top and let us know in #hytale!',
       copyright: '© 2026 Limetta',
-
-    }
+    },
+  },
+  sitemap: {
+    hostname: 'https://hytale.limetta.dev'
   }
 })

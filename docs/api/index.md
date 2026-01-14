@@ -10,6 +10,8 @@ This is auto-generated from the source code. For usage examples, see the [Refere
 
 - [ItemStack](/api/ItemStack) - `com.hypixel.hytale.server.core.inventory`
 - [Inventory](/api/Inventory) - `com.hypixel.hytale.server.core.inventory`
+- [ItemContainer](/api/ItemContainer) - `com.hypixel.hytale.server.core.inventory.container`
+- [LivingEntity](/api/LivingEntity) - `com.hypixel.hytale.server.core.entity`
 - [Player](/api/Player) - `com.hypixel.hytale.server.core.entity.entities`
 - [TransformComponent](/api/TransformComponent) - `com.hypixel.hytale.server.core.modules.entity.component`
 - [Damage](/api/Damage) - `com.hypixel.hytale.server.core.modules.entity.damage`
@@ -31,3 +33,7 @@ This is auto-generated from the source code. For usage examples, see the [Refere
 - [CommandBuffer](/api/CommandBuffer) - `com.hypixel.hytale.component`
 - [Store](/api/Store) - `com.hypixel.hytale.component`
 - [Ref](/api/Ref) - `com.hypixel.hytale.component`
+- [NPCEntity](/api/NPCEntity) - `com.hypixel.hytale.server.npc.entities`
+- [NPCPlugin](/api/NPCPlugin) - `com.hypixel.hytale.server.npc`
+- [WorldConfig](/api/WorldConfig) - `com.hypixel.hytale.server.core.universe.world`
+- [PlayerChatEvent](/api/PlayerChatEvent) - `com.hypixel.hytale.server.core.event.events.player`

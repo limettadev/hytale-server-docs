@@ -18,7 +18,7 @@ Before reading this, familiarize yourself with the [Event System](/concepts/even
 | `PlaceBlockEvent` | Fired when a block is placed | Yes |
 | `DamageBlockEvent` | Fired when a block takes damage (mining progress) | Yes |
 
-## Handling Block Break
+## Handling Block Break[^1]
 
 Use an `EntityEventSystem` to listen for break events:
 
@@ -30,7 +30,6 @@ import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
-import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import javax.annotation.Nonnull;
 
 public class BlockBreakHandler extends EntityEventSystem<BreakBlockEvent> {
@@ -48,8 +47,8 @@ public class BlockBreakHandler extends EntityEventSystem<BreakBlockEvent> {
     }
 
     @Override
-    public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull BreakBlockEvent event,
-                       @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+    public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                       @Nonnull CommandBuffer commandBuffer, @Nonnull BreakBlockEvent event) {
         Vector3i position = event.getTargetBlock();
         BlockType blockType = event.getBlockType();
 
@@ -80,8 +79,8 @@ public class BlockPlaceHandler extends EntityEventSystem<PlaceBlockEvent> {
     }
 
     @Override
-    public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull PlaceBlockEvent event,
-                       @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+    public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                       @Nonnull CommandBuffer commandBuffer, @Nonnull PlaceBlockEvent event) {
         Vector3i position = event.getTargetBlock();
         ItemStack item = event.getItemInHand();
 
@@ -116,8 +115,8 @@ public class ProtectedAreaHandler extends EntityEventSystem<BreakBlockEvent> {
     }
 
     @Override
-    public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull BreakBlockEvent event,
-                       @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+    public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                       @Nonnull CommandBuffer commandBuffer, @Nonnull BreakBlockEvent event) {
         Vector3i pos = event.getTargetBlock();
 
         // Check if block is in protected area
@@ -125,7 +124,7 @@ public class ProtectedAreaHandler extends EntityEventSystem<BreakBlockEvent> {
             event.setCancelled(true);
 
             // Notify player
-            Player player = (Player) store.getComponent(ref, Player.getComponentType());
+            Player player = (Player) chunk.getComponent(index, Player.getComponentType());
             player.getPlayerRef().sendMessage(Message.raw("You cannot break blocks here!"));
         }
     }
@@ -156,15 +155,15 @@ public class NoBuildZoneHandler extends EntityEventSystem<PlaceBlockEvent> {
     }
 
     @Override
-    public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull PlaceBlockEvent event,
-                       @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+    public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                       @Nonnull CommandBuffer commandBuffer, @Nonnull PlaceBlockEvent event) {
         Vector3i pos = event.getTargetBlock();
 
         // Prevent building above Y=200
         if (pos.getY() > 200) {
             event.setCancelled(true);
 
-            Player player = (Player) store.getComponent(ref, Player.getComponentType());
+            Player player = (Player) chunk.getComponent(index, Player.getComponentType());
             player.getPlayerRef().sendMessage(Message.raw("Cannot build this high!"));
         }
     }
@@ -191,8 +190,8 @@ public class MiningBoostHandler extends EntityEventSystem<DamageBlockEvent> {
     }
 
     @Override
-    public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull DamageBlockEvent event,
-                       @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+    public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                       @Nonnull CommandBuffer commandBuffer, @Nonnull DamageBlockEvent event) {
         // Double mining speed
         float originalDamage = event.getDamage();
         event.setDamage(originalDamage * 2.0f);
@@ -240,23 +239,33 @@ public class MiningBoostHandler extends EntityEventSystem<DamageBlockEvent> {
 | `getItemInHand()` | `ItemStack` | Tool used (nullable) |
 | `setCancelled(boolean)` | `void` | Prevent damage |
 
-## Disabling Block Modification Globally
+## Checking Block Modification Settings
 
-You can disable all block breaking/placing at the world level:
+Block modification permissions are configured per-world via `GameplayConfig`:
 
 ```java
 World world = Universe.get().getWorld("myworld");
-WorldConfig config = world.getWorldConfig();
+GameplayConfig gameplayConfig = world.getGameplayConfig();
 
-// Disable block breaking
-config.setBlockBreakingAllowed(false);
+// Check if block breaking is allowed
+if (!gameplayConfig.isBlockBreakingAllowed()) {
+    // Block breaking is disabled in this world's config
+}
 
-// Disable block placement
-config.setBlockPlacementAllowed(false);
+// Check if block placement is allowed
+if (!gameplayConfig.isBlockPlacementAllowed()) {
+    // Block placement is disabled in this world's config
+}
 
-// Disable block gathering (interaction)
-config.setBlockGatheringAllowed(false);
+// Check if block gathering (interaction) is allowed
+if (!gameplayConfig.isBlockGatheringAllowed()) {
+    // Block gathering is disabled in this world's config
+}
 ```
+
+::: tip
+These are read-only config values. To dynamically control block modification, use event handlers to cancel `BreakBlockEvent` or `PlaceBlockEvent` as shown above.
+:::
 
 ## Restricting by Block Type
 
@@ -283,8 +292,8 @@ public class BlockTypeRestriction extends EntityEventSystem<BreakBlockEvent> {
     }
 
     @Override
-    public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull BreakBlockEvent event,
-                       @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+    public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                       @Nonnull CommandBuffer commandBuffer, @Nonnull BreakBlockEvent event) {
         String blockId = event.getBlockType().getId();
 
         if (PROTECTED_BLOCKS.contains(blockId)) {
@@ -307,11 +316,11 @@ import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.modules.interaction.InteractionModule;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import com.hypixel.hytale.server.core.message.Message;
 import javax.annotation.Nonnull;
 
 public class BuildProtectionPlugin extends JavaPlugin {
@@ -352,15 +361,15 @@ public class BuildProtectionPlugin extends JavaPlugin {
         }
 
         @Override
-        public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull BreakBlockEvent event,
-                           @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+        public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                           @Nonnull CommandBuffer commandBuffer, @Nonnull BreakBlockEvent event) {
             Vector3i pos = event.getTargetBlock();
 
             // Protect area around world origin
             if (Math.abs(pos.getX()) < SPAWN_RADIUS && Math.abs(pos.getZ()) < SPAWN_RADIUS) {
                 event.setCancelled(true);
 
-                Player player = (Player) store.getComponent(ref, Player.getComponentType());
+                Player player = (Player) chunk.getComponent(index, Player.getComponentType());
                 player.getPlayerRef().sendMessage(
                     Message.raw("Spawn area is protected from block breaking!")
                 );
@@ -385,14 +394,14 @@ public class BuildProtectionPlugin extends JavaPlugin {
         }
 
         @Override
-        public void handle(@Nonnull Ref<EntityStore> ref, @Nonnull PlaceBlockEvent event,
-                           @Nonnull Store store, @Nonnull CommandBuffer commandBuffer) {
+        public void handle(int index, @Nonnull ArchetypeChunk chunk, @Nonnull Store store,
+                           @Nonnull CommandBuffer commandBuffer, @Nonnull PlaceBlockEvent event) {
             Vector3i pos = event.getTargetBlock();
 
             if (Math.abs(pos.getX()) < SPAWN_RADIUS && Math.abs(pos.getZ()) < SPAWN_RADIUS) {
                 event.setCancelled(true);
 
-                Player player = (Player) store.getComponent(ref, Player.getComponentType());
+                Player player = (Player) chunk.getComponent(index, Player.getComponentType());
                 player.getPlayerRef().sendMessage(
                     Message.raw("Spawn area is protected from building!")
                 );
@@ -408,7 +417,4 @@ public class BuildProtectionPlugin extends JavaPlugin {
 - [ECS Architecture](/concepts/ecs) - Understanding the component system
 - [Player](/reference/components/player) - Player component reference
 
-::: info API Reference
-See the full API documentation:
-- [EntityEventSystem](/api/EntityEventSystem) - Base class for event handlers
-:::
+[^1]: See [EntityEventSystem API](/api/EntityEventSystem) for the `handle()` method signature

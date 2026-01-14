@@ -22,20 +22,27 @@ Before reading this, familiarize yourself with the [Event System](/concepts/even
 
 **Location:** `com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent`
 
-When an entity's health reaches zero, `DeathComponent` is added automatically. This component contains:
+When an entity's health reaches zero, `DeathComponent` is added automatically. This component contains:[^1]
 
-| Property | Description |
-|----------|-------------|
+| Method | Description |
+|--------|-------------|
 | `getDeathCause()` | The `DamageCause` that killed the entity |
 | `getDeathInfo()` | The `Damage` object that caused death |
 | `getDeathMessage()` | Message shown on death screen |
+| `setDeathMessage(Message)` | Set custom death message |
 | `isShowDeathMenu()` | Whether to show respawn screen |
+| `setShowDeathMenu(boolean)` | Control respawn screen visibility |
 | `getItemsLostOnDeath()` | Items that were dropped |
-| `getItemsLossMode()` | How items are lost (ALL, CONFIGURED, NONE) |
+| `setItemsLossMode(ItemsLossMode)` | How items are lost (ALL, CONFIGURED, NONE) |
+| `setItemsAmountLossPercentage(double)` | Percentage of items to lose |
 
-## Creating a Handler
+[^1]: See [DeathComponent API](/api/DeathComponent) for full method list
+
+## Creating a Handler[^2]
 
 Extend `DeathSystems.OnDeathSystem`:
+
+[^2]: See [DeathSystems API](/api/DeathSystems) for base class methods
 
 ```java
 package com.example.myplugin;
@@ -77,7 +84,7 @@ public class MyDeathHandler extends DeathSystems.OnDeathSystem {
                 // Do something with the killer
                 Player killer = (Player) store.getComponent(killerRef, Player.getComponentType());
                 if (killer != null) {
-                    killer.sendMessage(Message.raw("You killed someone!"));
+                    killer.getPlayerRef().sendMessage(Message.raw("You killed someone!"));
                 }
             }
         }

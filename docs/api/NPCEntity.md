@@ -1,102 +1,159 @@
 # NPCEntity
 
-`com.hypixel.hytale.server.npc.entities.NPCEntity`
+**Package:** `com.hypixel.hytale.server.npc.entities`
 
-NPC (Non-Player Character) entity component. Extends `LivingEntity` and implements `INonPlayerCharacter`.
+**Type:** class
+
+**Extends:** `LivingEntity implements INonPlayerCharacter`
+
+## Constructors
+
+```java
+public NPCEntity()
+```
+
+```java
+public NPCEntity(@Nonnull World world)
+```
+
+## Static Fields
+
+| Name | Type |
+|------|------|
+| `CODEC` | `BuilderCodec` |
+
+## Fields
+
+| Name | Type |
+|------|------|
+| `roleName` | `String` |
+| `roleIndex` | `int` |
+| `role` | `Role` |
+| `spawnRoleIndex` | `int` |
+| `spawnRoleName` | `String` |
+| `spawnConfigurationName` | `String` |
+| `environmentIndex` | `int` |
+| `spawnConfigurationIndex` | `int` |
+| `isSpawnTracked` | `boolean` |
+| `isDespawning` | `boolean` |
+| `isPlayingDespawnAnim` | `boolean` |
+| `despawnRemainingSeconds` | `float` |
+| `despawnCheckRemainingSeconds` | `float` |
+| `despawnAnimationRemainingSeconds` | `float` |
+| `cachedEntityHorizontalSpeedMultiplier` | `float` |
+| `leashPoint` | `Vector3d` |
+| `leashHeading` | `float` |
+| `leashPitch` | `float` |
+| `hasLeashPosition` | `boolean` |
+| `hoverPhase` | `float` |
+| `hoverHeight` | `double` |
+| `initialModelScale` | `float` |
+| `spawnInstant` | `Instant` |
+| `pathManager` | `PathManager` |
+| `damageData` | `DamageData` |
+| `blackboardBlockTypeView` | `BlockTypeView` |
+| `blackboardBlockTypeSets` | `IntList` |
+| `blackboardBlockChangeView` | `BlockEventView` |
+| `blackboardBlockChangeSets` | `Map` |
+| `blackboardEntityEventView` | `EntityEventView` |
+| `blackboardEntityEventSets` | `Map` |
+| `alarmStore` | `AlarmStore` |
+| `worldgenId` | `int` |
+| `reservedBy` | `Set` |
+| `oldPosition` | `Vector3d` |
 
 ## Static Methods
 
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `getComponentType()` | `ComponentType` | Get the component type for querying |
+| Method | Returns |
+|--------|--------|
+| `getComponentType()` | `ComponentType` |
+| `setAppearance(@Nonnull Ref ref, @Nonnull String name, @Nonnull ComponentAccessor componentAccessor)` | `boolean` |
 
-## Key Methods
+## Methods
 
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `getRoleName()` | `String` | Get the NPC type name (e.g., "Creature_Skeleton") |
-| `setRoleName(String)` | `void` | Set the NPC type name |
-| `getRoleIndex()` | `int` | Get the NPC type index |
-| `setRoleIndex(int)` | `void` | Set the NPC type index |
-| `getRole()` | `Role` | Get the Role object controlling behavior |
-| `setRole(Role)` | `void` | Set the Role object |
-| `getSpawnRoleIndex()` | `int` | Get original spawn role index |
-| `getInventory()` | `Inventory` | Get NPC inventory (inherited) |
+| Method | Returns |
+|--------|--------|
+| `getAlarmStore()` | `AlarmStore` |
+| `createDefaultInventory()` | `Inventory` |
+| `Inventory((short)` | `return new` |
+| `getRole()` | `Role` |
+| `invalidateCachedHorizontalSpeedMultiplier()` | `void` |
+| `storeTickStartPosition(@Nonnull Vector3d position)` | `void` |
+| `tickDespawnAnimationRemainingSeconds(float dt)` | `boolean` |
+| `setDespawnAnimationRemainingSeconds(float seconds)` | `void` |
+| `tickDespawnRemainingSeconds(float dt)` | `boolean` |
+| `setDespawnRemainingSeconds(float seconds)` | `void` |
+| `setDespawning(boolean despawning)` | `void` |
+| `setPlayingDespawnAnim(boolean playingDespawnAnim)` | `void` |
+| `tickDespawnCheckRemainingSeconds(float dt)` | `boolean` |
+| `setDespawnCheckRemainingSeconds(float seconds)` | `void` |
+| `setInitialModelScale(float scale)` | `void` |
+| `getOldPosition()` | `Vector3d` |
+| `playAnimation(@Nonnull Ref ref, @Nonnull AnimationSlot animationSlot, @Nullable String animationId, @Nonnull ComponentAccessor componentAccessor)` | `void` |
+| `clearDamageData()` | `void` |
+| `setToDespawn()` | `void` |
+| `setDespawnTime(float time)` | `void` |
+| `getDespawnTime()` | `double` |
+| `canBreathe(@Nonnull Ref ref, @Nonnull BlockMaterial breathingMaterial, int fluidId, @Nonnull ComponentAccessor componentAccessor)` | `boolean` |
+| `getDamageData()` | `DamageData` |
+| `getCanCauseDamage(@Nonnull Ref attackerRef, @Nonnull ComponentAccessor componentAccessor)` | `boolean` |
+| `onFlockSetState(@Nonnull Ref ref, @Nonnull String state, @Nullable String subState, @Nonnull ComponentAccessor componentAccessor)` | `void` |
+| `onFlockSetTarget(@Nonnull String targetSlot, @Nonnull Ref target)` | `void` |
+| `saveLeashInformation(@Nonnull Vector3d position, @Nonnull Vector3f rotation)` | `void` |
+| `saveLeashBlockType()` | `void` |
+| `requiresLeashPosition()` | `boolean` |
+| `getLeashPoint()` | `Vector3d` |
+| `setLeashPoint(@Nonnull Vector3d leashPoint)` | `void` |
+| `getLeashHeading()` | `float` |
+| `setLeashHeading(float leashHeading)` | `void` |
+| `getLeashPitch()` | `float` |
+| `setLeashPitch(float leashPitch)` | `void` |
+| `getHoverPhase()` | `float` |
+| `setHoverPhase(float hoverPhase)` | `void` |
+| `getHoverHeight()` | `double` |
+| `setHoverHeight(double hoverHeight)` | `void` |
+| `getRoleName()` | `String` |
+| `setRoleName(String roleName)` | `void` |
+| `getRoleIndex()` | `int` |
+| `setRoleIndex(int roleIndex)` | `void` |
+| `setRole(Role role)` | `void` |
+| `getSpawnRoleIndex()` | `int` |
+| `setSpawnRoleIndex(int spawnRoleIndex)` | `void` |
+| `getBlockTypeBlackboardView(@Nonnull Ref ref, @Nonnull Store store)` | `BlockTypeView` |
+| `removeBlockTypeBlackboardView()` | `BlockTypeView` |
+| `initBlockTypeBlackboardView(@Nonnull Ref ref, ComponentAccessor componentAccessor)` | `void` |
+| `initBlockChangeBlackboardView(@Nonnull Ref ref, ComponentAccessor componentAccessor)` | `void` |
+| `addBlackboardBlockTypeSets(IntList blackboardBlockSets)` | `void` |
+| `getBlackboardBlockTypeSets()` | `IntList` |
+| `addBlackboardBlockChangeSets(@Nonnull BlockEventType type, @Nonnull IntSet sets)` | `void` |
+| `getBlackboardBlockChangeSet(BlockEventType type)` | `IntSet` |
+| `getBlackboardBlockChangeSets()` | `Map` |
+| `notifyBlockChange(@Nonnull BlockEventType type, @Nonnull EventNotification notification)` | `void` |
+| `addBlackboardEntityEventSets(@Nonnull EntityEventType type, @Nonnull IntSet sets)` | `void` |
+| `getBlackboardEntityEventSet(@Nonnull EntityEventType type)` | `IntSet` |
+| `getBlackboardEntityEventSets()` | `Map` |
+| `notifyEntityEvent(@Nonnull EntityEventType type, @Nonnull EntityEventNotification notification)` | `void` |
+| `setEnvironment(int env)` | `void` |
+| `getEnvironment()` | `int` |
+| `getSpawnConfiguration()` | `int` |
+| `setSpawnConfiguration(int spawnConfigurationIndex)` | `void` |
+| `updateSpawnTrackingState(boolean newState)` | `boolean` |
+| `isDespawning()` | `boolean` |
+| `isPlayingDespawnAnim()` | `boolean` |
+| `getRoleDebugFlags()` | `EnumSet` |
+| `setRoleDebugFlags(@Nonnull EnumSet flags)` | `void` |
+| `setSpawnInstant(@Nonnull Instant spawned)` | `void` |
+| `getSpawnInstant()` | `Instant` |
+| `setInventorySize(int hotbarCapacity, int inventoryCapacity, int offHandCapacity)` | `void` |
+| `getLegacyWorldgenId()` | `int` |
+| `getPathManager()` | `PathManager` |
+| `setAppearance(@Nonnull Ref ref, @Nonnull ModelAsset modelAsset, @Nonnull ComponentAccessor componentAccessor)` | `void` |
+| `getCurrentHorizontalSpeedMultiplier(@Nullable Ref ref, @Nullable ComponentAccessor componentAccessor)` | `float` |
+| `toString()` | `String` |
+| `getNPCTypeId()` | `String` |
+| `getNPCTypeIndex()` | `int` |
+| `addReservation(@Nonnull UUID playerUUID)` | `void` |
+| `removeReservation(@Nonnull UUID playerUUID)` | `void` |
+| `isReserved()` | `boolean` |
+| `isReservedBy(@Nonnull UUID playerUUID)` | `boolean` |
 
-## Position & Movement
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `getLeashPoint()` | `Vector3d` | Get spawn/leash anchor point |
-| `setLeashPoint(Vector3d)` | `void` | Set spawn/leash anchor point |
-| `getLeashHeading()` | `float` | Get spawn heading direction |
-| `setLeashHeading(float)` | `void` | Set spawn heading direction |
-| `getLeashPitch()` | `float` | Get spawn pitch |
-| `setLeashPitch(float)` | `void` | Set spawn pitch |
-| `getOldPosition()` | `Vector3d` | Get position from previous tick |
-| `requiresLeashPosition()` | `boolean` | Whether NPC needs leash position |
-| `saveLeashInformation(Vector3d, Vector3f)` | `void` | Save spawn position and rotation |
-
-## Hovering
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `getHoverPhase()` | `float` | Get hover animation phase |
-| `setHoverPhase(float)` | `void` | Set hover animation phase |
-| `getHoverHeight()` | `double` | Get hover height |
-| `setHoverHeight(double)` | `void` | Set hover height |
-
-## Despawn Control
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `setToDespawn()` | `void` | Mark NPC for despawning |
-| `getDespawnTime()` | `double` | Get remaining despawn time |
-| `setDespawnTime(float)` | `void` | Set despawn countdown |
-| `setDespawning(boolean)` | `void` | Set despawn state |
-| `setPlayingDespawnAnim(boolean)` | `void` | Set despawn animation state |
-
-## Combat & Damage
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `getDamageData()` | `DamageData` | Get damage tracking data |
-| `clearDamageData()` | `void` | Reset damage data |
-| `getCanCauseDamage(Ref, ComponentAccessor)` | `boolean` | Check if NPC can deal damage |
-| `canBreathe(Ref, BlockMaterial, int, ComponentAccessor)` | `boolean` | Check breathing in material |
-
-## Animation
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `playAnimation(Ref, AnimationSlot, String, ComponentAccessor)` | `void` | Play animation on slot |
-
-## Flock Integration
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `onFlockSetState(Ref, String, String, ComponentAccessor)` | `void` | Handle flock state change |
-| `onFlockSetTarget(String, Ref)` | `void` | Handle flock target assignment |
-
-## Example Usage
-
-```java
-// In a RefSystem listening for NPC spawns
-NPCEntity npc = (NPCEntity) store.getComponent(ref, NPCEntity.getComponentType());
-
-// Get NPC type
-String type = npc.getRoleName();  // e.g., "Creature_Skeleton"
-int typeIndex = npc.getRoleIndex();
-
-// Get spawn position
-Vector3d spawnPoint = npc.getLeashPoint();
-
-// Mark for despawn
-npc.setToDespawn();
-npc.setDespawnTime(5.0f);  // Despawn in 5 seconds
-```
-
-## See Also
-
-- [Entity Spawn](/reference/events/entity-spawn) - Handling entity spawns
-- [Player](/api/Player) - Player entity component

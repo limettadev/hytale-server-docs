@@ -248,6 +248,8 @@ function generateMarkdown(parsed: ParsedClass): string {
 const KEY_CLASSES = [
   "server/core/inventory/ItemStack.java",
   "server/core/inventory/Inventory.java",
+  "server/core/inventory/container/ItemContainer.java",
+  "server/core/entity/LivingEntity.java",
   "server/core/entity/entities/Player.java",
   "server/core/modules/entity/component/TransformComponent.java",
   "server/core/modules/entity/damage/Damage.java",
@@ -269,6 +271,10 @@ const KEY_CLASSES = [
   "component/CommandBuffer.java",
   "component/Store.java",
   "component/Ref.java",
+  "server/npc/entities/NPCEntity.java",
+  "server/npc/NPCPlugin.java",
+  "server/core/universe/world/WorldConfig.java",
+  "server/core/event/events/player/PlayerChatEvent.java",
 ];
 
 async function main() {
