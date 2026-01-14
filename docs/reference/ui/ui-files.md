@@ -129,6 +129,115 @@ Button #MyButton {
 | `Style` | Style | Button styling |
 | `Visible` | Boolean | Show/hide |
 
+### Input
+
+Text input field, also used for dropdowns.
+
+```java
+// Text input
+commandBuilder.set("#SearchInput.Value", "search term");
+
+// Dropdown with entries
+List<DropdownEntryInfo> options = new ArrayList<>();
+options.add(new DropdownEntryInfo(LocalizableString.fromString("Option 1"), "opt1"));
+commandBuilder.set("#Dropdown.Entries", options);
+commandBuilder.set("#Dropdown.Value", "opt1");
+
+// Color picker input
+commandBuilder.set("#GrassTint #Input.Color", "#5B9E28");
+```
+
+**Properties:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `Value` | String | Current input value |
+| `Entries` | List&lt;DropdownEntryInfo&gt; | Dropdown options |
+| `Color` | String | Color value (for color inputs) |
+| `Visible` | Boolean | Show/hide |
+
+### CheckBox
+
+Boolean toggle element.
+
+```java
+// Set checkbox value
+commandBuilder.set("#EnableOption #CheckBox.Value", true);
+
+// Read value in event binding
+eventBuilder.addEventBinding(
+    CustomUIEventBindingType.ValueChanged,
+    "#EnableOption #CheckBox",
+    EventData.of("@Enabled", "#EnableOption #CheckBox.Value")
+);
+```
+
+**Properties:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `Value` | Boolean | Checked state |
+| `Visible` | Boolean | Show/hide |
+
+### Slider
+
+Numeric value slider.
+
+```java
+// Bind to slider value changes
+eventBuilder.addEventBinding(
+    CustomUIEventBindingType.ValueChanged,
+    "#VolumeSlider",
+    EventData.of("@Volume", "#VolumeSlider.Value"),
+    false
+);
+```
+
+**Properties:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `Value` | Number | Current slider value |
+| `Visible` | Boolean | Show/hide |
+
+### ColorPicker
+
+Color selection element.
+
+```java
+// Bind to color picker
+eventBuilder.addEventBinding(
+    CustomUIEventBindingType.ValueChanged,
+    "#ColorPicker",
+    EventData.of("@Color", "#ColorPicker.Value")
+);
+```
+
+**Properties:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `Value` | String | Selected color (hex format) |
+| `Visible` | Boolean | Show/hide |
+
+### ItemSlot
+
+Displays an item with icon and quantity.
+
+```java
+// Set item by ID
+commandBuilder.set("#OutputSlot.ItemId", "Tool_Sword_Wood");
+
+// Set item grid slots
+commandBuilder.set("#ItemMaterialSlot.Slots", new ItemGridSlot[] {
+    new ItemGridSlot(new ItemStack("Tool_Pickaxe_Wood", 1))
+});
+```
+
+**Properties:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `ItemId` | String | Item type ID to display |
+| `Slots` | ItemGridSlot[] | Grid slot data |
+| `Background` | PatchStyle | Slot background |
+| `Overlay` | PatchStyle | Slot overlay |
+
 ## Properties Reference
 
 ### Anchor
