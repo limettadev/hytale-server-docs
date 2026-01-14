@@ -137,25 +137,22 @@ Button #MyButton {
 
 Text input field, also used for dropdowns.
 
-```java
-// Text input
-commandBuilder.set("#SearchInput.Value", "search term");
+```
+Input #SearchInput {
+  Value: "default text";
+}
 
-// Dropdown with entries
-List<DropdownEntryInfo> options = new ArrayList<>();
-options.add(new DropdownEntryInfo(LocalizableString.fromString("Option 1"), "opt1"));
-commandBuilder.set("#Dropdown.Entries", options);
-commandBuilder.set("#Dropdown.Value", "opt1");
-
-// Color picker input
-commandBuilder.set("#GrassTint #Input.Color", "#5B9E28");
+// Dropdown with entries (entries typically set via Java)
+Input #CategoryDropdown {
+  Value: "option1";
+}
 ```
 
 **Properties:**
 | Property | Type | Description |
 |----------|------|-------------|
 | `Value` | String | Current input value |
-| `Entries` | List&lt;DropdownEntryInfo&gt; | Dropdown options |
+| `Entries` | List&lt;DropdownEntryInfo&gt; | Dropdown options (set via Java) |
 | `Color` | String | Color value (for color inputs) |
 | `Visible` | Boolean | Show/hide |
 
@@ -163,16 +160,12 @@ commandBuilder.set("#GrassTint #Input.Color", "#5B9E28");
 
 Boolean toggle element.
 
-```java
-// Set checkbox value
-commandBuilder.set("#EnableOption #CheckBox.Value", true);
-
-// Read value in event binding
-eventBuilder.addEventBinding(
-    CustomUIEventBindingType.ValueChanged,
-    "#EnableOption #CheckBox",
-    EventData.of("@Enabled", "#EnableOption #CheckBox.Value")
-);
+```
+Group #EnableOption {
+  CheckBox #CheckBox {
+    Value: true;
+  }
+}
 ```
 
 **Properties:**
@@ -185,14 +178,10 @@ eventBuilder.addEventBinding(
 
 Numeric value slider.
 
-```java
-// Bind to slider value changes
-eventBuilder.addEventBinding(
-    CustomUIEventBindingType.ValueChanged,
-    "#VolumeSlider",
-    EventData.of("@Volume", "#VolumeSlider.Value"),
-    false
-);
+```
+Slider #VolumeSlider {
+  Value: 50;
+}
 ```
 
 **Properties:**
@@ -205,13 +194,10 @@ eventBuilder.addEventBinding(
 
 Color selection element.
 
-```java
-// Bind to color picker
-eventBuilder.addEventBinding(
-    CustomUIEventBindingType.ValueChanged,
-    "#ColorPicker",
-    EventData.of("@Color", "#ColorPicker.Value")
-);
+```
+ColorPicker #TintColor {
+  Value: "#5B9E28";
+}
 ```
 
 **Properties:**
@@ -224,21 +210,22 @@ eventBuilder.addEventBinding(
 
 Displays an item with icon and quantity.
 
-```java
-// Set item by ID
-commandBuilder.set("#OutputSlot.ItemId", "Tool_Sword_Wood");
+```
+ItemSlot #OutputSlot {
+  ItemId: "Tool_Sword_Wood";
+}
 
-// Set item grid slots
-commandBuilder.set("#ItemMaterialSlot.Slots", new ItemGridSlot[] {
-    new ItemGridSlot(new ItemStack("Tool_Pickaxe_Wood", 1))
-});
+ItemSlot #MaterialSlot {
+  Background: $C.@SlotBackground;
+  Overlay: $C.@SlotOverlay;
+}
 ```
 
 **Properties:**
 | Property | Type | Description |
 |----------|------|-------------|
 | `ItemId` | String | Item type ID to display |
-| `Slots` | ItemGridSlot[] | Grid slot data |
+| `Slots` | ItemGridSlot[] | Grid slot data (set via Java) |
 | `Background` | PatchStyle | Slot background |
 | `Overlay` | PatchStyle | Slot overlay |
 
