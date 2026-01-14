@@ -50,6 +50,10 @@ $C.@DefaultScrollbarStyle
 
 ## UI Elements
 
+::: warning Note
+UI elements are defined client-side in Hytale's UI framework. This documentation is based on observed server-side usage patterns in `UICommandBuilder` calls, not the actual element source definitions. The properties listed are those that can be manipulated from the server.
+:::
+
 ### Group
 
 Container element for organizing child elements.
