@@ -58,6 +58,13 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Reference: UI',
+        collapsed: false,
+        items: [
+          { text: 'UI File Reference', link: '/reference/ui/ui-files' }
+        ]
+      },
+      {
         text: 'API Reference',
         collapsed: true,
         items: [
@@ -85,7 +92,10 @@ export default defineConfig({
           { text: 'Query', link: '/api/Query' },
           { text: 'CommandBuffer', link: '/api/CommandBuffer' },
           { text: 'Store', link: '/api/Store' },
-          { text: 'Ref', link: '/api/Ref' }
+          { text: 'Ref', link: '/api/Ref' },
+          { text: 'CustomUIPage', link: '/api/CustomUIPage' },
+          { text: 'UICommandBuilder', link: '/api/UICommandBuilder' },
+          { text: 'UIEventBuilder', link: '/api/UIEventBuilder' }
         ]
       }
     ],

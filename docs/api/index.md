@@ -37,3 +37,11 @@ This is auto-generated from the source code. For usage examples, see the [Refere
 - [NPCPlugin](/api/NPCPlugin) - `com.hypixel.hytale.server.npc`
 - [WorldConfig](/api/WorldConfig) - `com.hypixel.hytale.server.core.universe.world`
 - [PlayerChatEvent](/api/PlayerChatEvent) - `com.hypixel.hytale.server.core.event.events.player`
+- [CustomUIPage](/api/CustomUIPage) - `com.hypixel.hytale.server.core.entity.entities.player.pages`
+- [BasicCustomUIPage](/api/BasicCustomUIPage) - `com.hypixel.hytale.server.core.entity.entities.player.pages`
+- [InteractiveCustomUIPage](/api/InteractiveCustomUIPage) - `com.hypixel.hytale.server.core.entity.entities.player.pages`
+- [EntityUIComponent](/api/EntityUIComponent) - `com.hypixel.hytale.server.core.modules.entityui.asset`
+- [EntityStatUIComponent](/api/EntityStatUIComponent) - `com.hypixel.hytale.server.core.modules.entityui.asset`
+- [CombatTextUIComponent](/api/CombatTextUIComponent) - `com.hypixel.hytale.server.core.modules.entityui.asset`
+- [UICommandBuilder](/api/UICommandBuilder) - `com.hypixel.hytale.server.core.ui.builder`
+- [UIEventBuilder](/api/UIEventBuilder) - `com.hypixel.hytale.server.core.ui.builder`

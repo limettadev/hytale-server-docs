@@ -275,6 +275,15 @@ const KEY_CLASSES = [
   "server/npc/NPCPlugin.java",
   "server/core/universe/world/WorldConfig.java",
   "server/core/event/events/player/PlayerChatEvent.java",
+  // UI Components
+  "server/core/entity/entities/player/pages/CustomUIPage.java",
+  "server/core/entity/entities/player/pages/BasicCustomUIPage.java",
+  "server/core/entity/entities/player/pages/InteractiveCustomUIPage.java",
+  "server/core/modules/entityui/asset/EntityUIComponent.java",
+  "server/core/modules/entityui/asset/EntityStatUIComponent.java",
+  "server/core/modules/entityui/asset/CombatTextUIComponent.java",
+  "server/core/ui/builder/UICommandBuilder.java",
+  "server/core/ui/builder/UIEventBuilder.java",
 ];
 
 async function main() {
