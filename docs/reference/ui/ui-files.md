@@ -259,7 +259,7 @@ Selectors are used to target elements for manipulation.
 "#Element[0].Visible"
 ```
 
-## UICommandBuilder Usage
+## UICommandBuilder Usage[^1]
 
 Manipulate UI from Java code:
 
@@ -316,7 +316,7 @@ public void build(@Nonnull Ref<EntityStore> ref,
 }
 ```
 
-## UIEventBuilder Usage
+## UIEventBuilder Usage[^2]
 
 Bind events to elements:
 
@@ -351,7 +351,7 @@ eventBuilder.addEventBinding(
 );
 ```
 
-## Event Types
+## Event Types[^3]
 
 | Event | Description |
 |-------|-------------|
@@ -372,11 +372,15 @@ eventBuilder.addEventBinding(
 | `SlotDoubleClicking` | Item slot double-clicked |
 | `SlotMouseEntered` | Mouse entered slot |
 | `SlotMouseExited` | Mouse exited slot |
-| `SelectedTabChanged` | Tab selection changed |
 | `DragCancelled` | Drag operation cancelled |
 | `Dropped` | Item dropped |
+| `SlotMouseDragCompleted` | Slot drag completed |
+| `SlotMouseDragExited` | Mouse exited during slot drag |
+| `SlotClickReleaseWhileDragging` | Click released while dragging slot |
+| `SlotClickPressWhileDragging` | Click pressed while dragging slot |
+| `SelectedTabChanged` | Tab selection changed |
 
-## Handling Events
+## Handling Events[^4]
 
 ```java
 public static class MyPageData {
@@ -531,3 +535,11 @@ public class MyPage extends InteractiveCustomUIPage<MyPage.PageData> {
 - [UICommandBuilder API](/api/UICommandBuilder) - UI manipulation methods
 - [UIEventBuilder API](/api/UIEventBuilder) - Event binding methods
 - [Creating a Plugin](/getting-started/plugin) - Plugin setup guide
+
+[^1]: See [UICommandBuilder API](/api/UICommandBuilder) for all methods including `append()`, `appendInline()`, `set()`, `clear()`, `remove()`, `insertBefore()`
+
+[^2]: See [UIEventBuilder API](/api/UIEventBuilder) for `addEventBinding()` overloads with optional `EventData` and `locksInterface` parameters
+
+[^3]: Event types are from `CustomUIEventBindingType` enum in `com.hypixel.hytale.protocol.packets.interface_`
+
+[^4]: `InteractiveCustomUIPage<T>` requires a `BuilderCodec<T>` for event data - see [InteractiveCustomUIPage API](/api/InteractiveCustomUIPage) for the constructor signature and `handleDataEvent()` method

@@ -94,6 +94,7 @@ export default defineConfig({
           { text: 'Store', link: '/api/Store' },
           { text: 'Ref', link: '/api/Ref' },
           { text: 'CustomUIPage', link: '/api/CustomUIPage' },
+          { text: 'InteractiveCustomUIPage', link: '/api/InteractiveCustomUIPage' },
           { text: 'UICommandBuilder', link: '/api/UICommandBuilder' },
           { text: 'UIEventBuilder', link: '/api/UIEventBuilder' }
         ]
