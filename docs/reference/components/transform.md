@@ -38,13 +38,11 @@ Vector3d position = transform.getPosition();
 double x = position.getX();
 double y = position.getY();
 double z = position.getZ();
-
-// Set position (teleport)
-transform.setPosition(new Vector3d(100, 64, 200));
-
-// Or modify existing
-position.set(100, 64, 200);
 ```
+
+::: warning
+Do not use `setPosition()` to teleport entities - it won't work correctly. Use the `Teleport` component instead (see [Teleporting Entities](#teleporting-entities) below).
+:::
 
 ## Rotation
 
@@ -77,20 +75,33 @@ public void onEntityAdded(@Nonnull Ref<EntityStore> ref, @Nonnull AddReason reas
 }
 ```
 
-## Example: Teleport Player
+## Teleporting Entities[^2]
+
+To teleport an entity, add a `Teleport` component. This is how the built-in teleport commands work:
 
 ```java
-public void teleportPlayer(Ref<EntityStore> ref, CommandBuffer commandBuffer,
-                            double x, double y, double z) {
+public void teleportEntity(Ref<EntityStore> ref, Store store,
+                            double x, double y, double z, float yaw, float pitch) {
 
+    // Get current rotation for values we want to preserve
     TransformComponent transform = (TransformComponent)
-        commandBuffer.getComponent(ref, TransformComponent.getComponentType());
+        store.getComponent(ref, TransformComponent.getComponentType());
+    Vector3f previousBodyRotation = transform.getRotation();
 
-    if (transform != null) {
-        transform.setPosition(new Vector3d(x, y, z));
-    }
+    // Create teleport with position and body rotation
+    Teleport teleport = new Teleport(
+        new Vector3d(x, y, z),
+        new Vector3f(previousBodyRotation.getPitch(), yaw, previousBodyRotation.getRoll())
+    ).withHeadRotation(new Vector3f(pitch, yaw, 0));
+
+    // Add the component to trigger the teleport
+    store.addComponent(ref, Teleport.getComponentType(), teleport);
 }
 ```
+
+::: tip
+The `Teleport` component is consumed by the engine - you add it, and the teleport happens. You don't need to remove it afterward.
+:::
 
 ## Example: Calculate Distance
 
@@ -120,6 +131,7 @@ public double getDistance(Ref<EntityStore> ref1, Ref<EntityStore> ref2,
 
 | Component | Description |
 |-----------|-------------|
+| `Teleport` | Add this component to teleport an entity |
 | `HeadRotation` | Head direction (separate from body) |
 | `Velocity` | Movement velocity |
 
@@ -140,4 +152,6 @@ Vector3d vel = velocity.getVelocity();
 - [Components Concept](/concepts/components) - How components work
 - [Player Component](/reference/components/player) - Player data
 
-[^1]: See [TransformComponent API](/api/TransformComponent) for `getPosition()`, `setPosition()`, `getRotation()`, `setRotation()`, and `teleportPosition()`
+[^1]: See [TransformComponent API](/api/TransformComponent) for `getPosition()`, `getRotation()`, and other position/rotation methods
+
+[^2]: The `Teleport` component is in `com.hypixel.hytale.server.core.modules.entity.component.Teleport`

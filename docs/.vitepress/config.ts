@@ -11,13 +11,13 @@ export default defineConfig({
       { text: 'API', link: '/api/' }
     ],
     sidebar: [
-      {
+      /*{
         text: 'Getting Started',
         items: [
           { text: 'Introduction', link: '/' },
           { text: 'Creating a Plugin', link: '/getting-started/plugin' }
         ]
-      },
+      },*/
       {
         text: 'Concepts',
         collapsed: false,
