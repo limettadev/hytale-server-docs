@@ -54,7 +54,8 @@ export default defineConfig({
         text: 'Reference: Systems',
         collapsed: false,
         items: [
-          { text: 'World Management', link: '/reference/systems/worlds' }
+          { text: 'World Management', link: '/reference/systems/worlds' },
+          { text: 'Scheduling Tasks', link: '/reference/systems/scheduling' }
         ]
       },
       {
@@ -97,7 +98,9 @@ export default defineConfig({
           { text: 'CustomUIPage', link: '/api/CustomUIPage' },
           { text: 'InteractiveCustomUIPage', link: '/api/InteractiveCustomUIPage' },
           { text: 'UICommandBuilder', link: '/api/UICommandBuilder' },
-          { text: 'UIEventBuilder', link: '/api/UIEventBuilder' }
+          { text: 'UIEventBuilder', link: '/api/UIEventBuilder' },
+          { text: 'HytaleServer', link: '/api/HytaleServer' },
+          { text: 'World', link: '/api/World' }
         ]
       }
     ],

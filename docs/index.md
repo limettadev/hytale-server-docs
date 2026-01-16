@@ -4,13 +4,13 @@ hero:
   name: Hytale API Documentation
   text: by limetta
   tagline: Documentation for the HytaleServer plugin API
-  actions:
-    - theme: brand
-      text: Get Started
-      link: /getting-started/plugin
-    - theme: alt
-      text: View Concepts
-      link: /concepts/events
+#  actions:
+#    - theme: brand
+#      text: Concepts
+#      link: /getting-started/plugin
+#    - theme: alt
+#      text: API Documentation
+#      link: /concepts/events
 features:
   - title: ECS Architecture
     details: Learn about Hytale's flexible Entity-Component-System architecture.

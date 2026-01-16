@@ -279,11 +279,25 @@ const KEY_CLASSES = [
   "server/core/entity/entities/player/pages/CustomUIPage.java",
   "server/core/entity/entities/player/pages/BasicCustomUIPage.java",
   "server/core/entity/entities/player/pages/InteractiveCustomUIPage.java",
+  "server/core/entity/entities/player/hud/CustomUIHud.java",
   "server/core/modules/entityui/asset/EntityUIComponent.java",
   "server/core/modules/entityui/asset/EntityStatUIComponent.java",
   "server/core/modules/entityui/asset/CombatTextUIComponent.java",
   "server/core/ui/builder/UICommandBuilder.java",
   "server/core/ui/builder/UIEventBuilder.java",
+  // UI Data Types
+  "server/core/ui/Anchor.java",
+  "server/core/ui/Area.java",
+  "server/core/ui/DropdownEntryInfo.java",
+  "server/core/ui/ItemGridSlot.java",
+  "server/core/ui/LocalizableString.java",
+  "server/core/ui/PatchStyle.java",
+  "server/core/ui/Value.java",
+  // UI Browser
+  "server/core/ui/browser/ServerFileBrowser.java",
+  // Scheduling & Threading
+  "server/core/HytaleServer.java",
+  "server/core/universe/world/World.java",
 ];
 
 async function main() {
